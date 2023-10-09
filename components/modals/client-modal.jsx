@@ -9,12 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
-
+import { useRouter } from 'next/navigation';
 import Modal from "@/components/ui/modal";
 import useClientModal from '@/hooks/use-client-modal';
 
 const ClientModal = () => {
   const clientModal = useClientModal();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const formSchema = z.object({
@@ -46,6 +47,8 @@ const ClientModal = () => {
            .then(()=>{
             clientModal.onClose();
             toast.success('Client succesufully added')
+            //window.location.assign('/clients')
+            router.refresh();
            })
            .catch((error) =>{
             toast.error(error.response.data)
