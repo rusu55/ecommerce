@@ -14,10 +14,12 @@ import { useRouter } from "next/navigation";
 import useLoginModal from '@/hooks/use-login-modal';
 import Modal from "@/components/ui/modal";
 
+import { format } from 'date-fns';
+
 const LoginModal = () => {
     const loginModal = useLoginModal();
     const router = useRouter();
-    const callbackUrl = (router.query?.callbackUrl) ?? "/employees"
+    const callbackUrl = (router.query?.callbackUrl) ?? `/${format(new Date(), 'yyyy')}/overview`
     const [loading, setLoading] = useState(false);
 
     const formSchema = z.object({
