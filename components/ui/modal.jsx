@@ -17,7 +17,7 @@ const Modal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-        <DialogContent>
+        <DialogContent  className={"overflow-y-scroll max-h-[96%]"}>
             <DialogHeader>
                 <DialogTitle>{title}</DialogTitle>
                 <DialogDescription>

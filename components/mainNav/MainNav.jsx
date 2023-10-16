@@ -11,14 +11,14 @@ const MainNav = ({className, ...props}) => {
 
   const routes = [
     {
-      href: `/employees/${params.employeeId}/overview`,
+      href: `/${params.clientsYear}/overview`,
       label: 'Overview',
-      active: pathName === `/${params.employeeId}/overview`,
+      active: pathName === `/${params.clientsYear}/overview`,
     },
     {
-      href: `/${params.storeId}/billboards`,
-      label: 'Billboards',
-      active: pathName === `/${params.storeId}/billboards`,
+      href: `/${params.clientsYear}/statistics`,
+      label: 'Statistics',
+      active: pathName === `/${params.clientsYear}/statistics`,
     }, 
   ]
 

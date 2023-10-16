@@ -1,10 +1,11 @@
 import { Separator } from "@/components/ui/separator";
 import { CreditCard, DollarSign, Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Overview from "@/components/elements/Overview";
+import Overview from "@/components/elements/Chart";
 
 import Heading from "@/components/ui/heading";
 import { getGraphData } from "@/actions/getGraphData";
+import Chart from "@/components/elements/Chart";
 
 const Dashboard = async ({params}) => {
   const graphData = getGraphData();
@@ -49,7 +50,7 @@ const Dashboard = async ({params}) => {
               <CardTitle>Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <Overview data={graphData} />
+              <Chart data={graphData} />
             </CardContent>
           </Card>
       </div>

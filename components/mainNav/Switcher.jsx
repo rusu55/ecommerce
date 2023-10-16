@@ -15,9 +15,10 @@ const Switcher = ({ className, items = [] }) => {
   const router = useRouter();
 
   const [open, setOpen] = useState(false)  
-
+ 
  const formatedYears = items.map((item) => ({
-                    label: item
+                    label: item.years,
+                    id: items.id
                   })) 
     
   

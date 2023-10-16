@@ -1,10 +1,13 @@
 import {Schema, model, models } from 'mongoose';
 
 const ClientSchema = new Schema({
-    name: {
-        type: String,
-        unique: [true, 'Contractor already exist!'],
-        require: [true, 'Name of Client is required'],
+    firstName: {
+        type: String,        
+        require: [true, 'First Name is required'],
+        },
+    lasttName: {
+        type: String,        
+        require: [true, 'Last Name is required'],
         },
     address: {
         type: String,        

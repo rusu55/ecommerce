@@ -1,15 +1,10 @@
 import {Schema, model, models } from 'mongoose';
 
 const ServiceSchema = new Schema({    
-        photography: {
-            type: String,
-        },
-        videography: {
-            type: String,
-        },
-        tag:{
-            type: String,
-        }
+      services: {
+        type:[String],
+        required: true
+      }       
 })
 
 const Service = models.Service || model("Service", ServiceSchema)
