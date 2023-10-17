@@ -1,10 +1,14 @@
 "use client"
-
+import {format, subYears, parseISO} from 'date-fns';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts"
 
+
 const Chart = ({
-  data
+  data, year
 }) => {
+  
+  const date = subYears(parseISO(year), 1);
+  
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -25,8 +29,8 @@ const Chart = ({
         />
         <Tooltip />
         <Legend />
-        <Bar dataKey="2022"  fill="#82ca9d" radius={[4, 4, 0, 0]} />
-        <Bar dataKey="total" fill="#3498db" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="prev"  fill="#82ca9d" name={format(new Date(date), 'yyyy')} radius={[4, 4, 0, 0]} />
+        <Bar dataKey="now" fill="#3498db" name={year} radius={[4, 4, 0, 0]} />
         
       </BarChart>
     </ResponsiveContainer>

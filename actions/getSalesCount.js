@@ -1,46 +1,77 @@
+import {format} from 'date-fns'
 import { connectToDB } from "@/utils/database";
 import Client from "@/models/client";
 
+
 export const GetSalesCount = async (year) =>{
-    
+
+       
     await connectToDB();
-    const sales = await Client.find({weddingDate: {$gte: `${year}-01-01`, $lte: `${year}-12-30`}}).select('value weddingDate');
+    const sales = (await Client.find({weddingDate: {$gte: `${parseInt(year-1)}-01-01`, $lte: `${year}-12-30`}}).select('value weddingDate').populate('value'));
     const contracts = await Client.count({weddingDate: {$gte: `${year}-01-01`, $lte: `${year}-12-30`}});
    
     // Revenue
-    const totalRevenue = sales.reduce((total, sale) =>
-    {
-        return total + parseInt(sale.value)
-    }, 0);
 
-    // Chart Data\
-    const montlyRevenue = {};
-    const chartData = [
-        { name: "Jan", 2023: 0, 2022: 2999 },
-        { name: "Feb", 2023: 0, 2022: 0 },
-        { name: "Mar", 2023: 0, 2022: 0 },
-        { name: "Apr", 2023: 0, 2022: 1999 },
-        { name: "May", 2023: 0, 2022: 0 },
-        { name: "Jun", 2023: 0, 2022: 3999 },
-        { name: "Jul", 2023: 0, 2022: 0 },
-        { name: "Aug", 2023: 0, 2022: 1699 },
-        { name: "Sep", 2023: 0, 2022: 3299 },
-        { name: "Oct", 2023: 0, 2022: 1999 },
-        { name: "Nov", 2023: 0, 2022: 0},
-        { name: "Dec", 2023: 0, 2022: 1999 },
-    ]
+        // Chart Data\
+        
+        const chartData = [
+            { name: "Jan", now: 0, prev: 0 },
+            { name: "Feb", now: 0, prev: 0 },
+            { name: "Mar", now: 0, prev: 0 },
+            { name: "Apr", now: 0, prev: 0 },
+            { name: "May", now: 0, prev: 0 },
+            { name: "Jun", now: 0, prev: 0 },
+            { name: "Jul", now: 0, prev: 0 },
+            { name: "Aug", now: 0, prev: 0 },
+            { name: "Sep", now: 0, prev: 0 },
+            { name: "Oct", now: 0, prev: 0 },
+            { name: "Nov", now: 0, prev: 0 },
+            { name: "Dec", now: 0, prev: 0 },
+        ]
 
-    for ( const sale of sales){
-        const month = sale.weddingDate.getMonth();
-        montlyRevenue[month] = (montlyRevenue[month] || 0) + parseInt(sale.value);
+    const getTotalRevenue = (data) => {
+        const revenue = data.reduce((total, sale) =>{
+            return total + parseInt(sale.value.contractValue)
+        }, 0)
+        return revenue
     }
+
+    const pushSalesInArray = (data, year = null) =>{
+        const montlyRevenue = {};
+        
+
+        for (const sale of data){
+            const month = sale.weddingDate.getMonth();
+            montlyRevenue[month] = (montlyRevenue[month] || 0) + parseInt(sale.value.contractValue);
+        }
+        
+        if(year != null){
+            for(const month in montlyRevenue){
+                chartData[parseInt(month)].now = montlyRevenue[parseInt(month)];
+            }
+        }
+        else{
+            for(const month in montlyRevenue){
+                chartData[parseInt(month)].prev = montlyRevenue[parseInt(month)];
+            }
+            }
+        }
+        
+
+    const currentYearSales =  sales.filter(object => new Date(object.weddingDate).getFullYear() === parseInt(year))
+    const prevYearSales = sales.filter(object => new Date(object.weddingDate).getFullYear() !== parseInt(year))
     
-    for(const month in montlyRevenue){
-        chartData[parseInt(month)].total = montlyRevenue[parseInt(month)];
-    }
-   
+    const currentYearRevenue = getTotalRevenue(currentYearSales);
+    pushSalesInArray(currentYearSales, parseInt(year))
+    
+    const prevYearRevenue = getTotalRevenue(prevYearSales);
+    
+    pushSalesInArray(prevYearSales)
+ 
+    
     const returnObject = {
-        revenue: totalRevenue,
+        currentRevenue: currentYearRevenue,
+        prevRevenue: prevYearRevenue,
         contracts: contracts,
         chartData: chartData,
     }

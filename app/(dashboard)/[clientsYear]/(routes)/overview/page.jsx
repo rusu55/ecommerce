@@ -11,7 +11,8 @@ const Clients = async ({params}) => {
 const formatedData = clients.map((client) =>({
   id : client.id,
   weddingDate: format(client.weddingDate, 'MM/dd/yyyy'),
-  name : client.name,
+  firstName : client.firstName,
+  lastName: client.lastName,
   email: client.email,
   phone: client.phone,
   services: client.services,

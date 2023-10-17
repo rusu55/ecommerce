@@ -42,8 +42,7 @@ const Statistics = async  ({params}) => {
               <CardTitle>Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <Chart data={sales.chartData
-              } />
+              <Chart data={sales.chartData} year={params.clientsYear}/>
             </CardContent>
           </Card>
       </div>

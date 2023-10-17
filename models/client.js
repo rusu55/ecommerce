@@ -25,7 +25,8 @@ const ClientSchema = new Schema({
         require: [true, 'Wedding Date is required'],
     },
     value:{
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Payment',
     },
     services: {
         type: Schema.Types.ObjectId,

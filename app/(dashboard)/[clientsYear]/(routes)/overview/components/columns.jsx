@@ -9,8 +9,12 @@ export const columns = [
     header: "Wedding Date"
   },
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "firstName",
+    header: "First Name",
+  },
+  {
+    accessorKey: "lastName",
+    header: "Last Name",
   },
   {
     accessorKey: "email",
