@@ -24,7 +24,7 @@ const BillboardClient = ({data}) => {
               </Button>
         </div>
         <Separator />
-        <DataTable searchKey="name" columns={columns} data={data} />        
+        <DataTable searchKey="firstName" columns={columns} data={data} />        
     </>
   )
 }

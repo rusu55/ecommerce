@@ -4,7 +4,7 @@ import { Check, ChevronsUpDown, PlusCircle, CalendarCheck2 } from "lucide-react"
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command';
 
@@ -13,20 +13,22 @@ const Switcher = ({ className, items = [] }) => {
 
   const params = useParams();
   const router = useRouter();
-
+  const path = usePathname();
+ 
   const [open, setOpen] = useState(false)  
  
  const formatedYears = items.map((item) => ({
                     label: item.years,
-                    id: items.id
+                    id: item._id.toString()
                   })) 
     
   
   const selectedYear = formatedYears.find((item) => item.label === params.clientsYear)  
   const handleYearChange = (currentYear) =>{
+    const pathArray = path.split("/")
     setOpen(false);
-    
-    router.push(`/${currentYear}/overview`);
+   
+    router.push(`/${currentYear}/${pathArray[pathArray.length -1]}`);
     
   }
   return (

@@ -1,6 +1,7 @@
 import {format} from 'date-fns'
 import { connectToDB } from "@/utils/database";
 import Client from "@/models/client";
+import Payment from '@/models/payment';
 
 
 export const GetSalesCount = async (year) =>{

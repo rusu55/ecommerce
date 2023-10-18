@@ -4,18 +4,18 @@ import { connectToDB } from "@/utils/database";
 import Client from "@/models/client";
 
 const Clients = async ({params}) => {
-  
+ 
   await connectToDB();
   const clients = await Client.find({weddingDate: {$gte: `${params.clientsYear}-01-01`, $lte: `${params.clientsYear}-12-30`}});
  
 const formatedData = clients.map((client) =>({
-  id : client.id,
+  id : client._id.toString(),
   weddingDate: format(client.weddingDate, 'MM/dd/yyyy'),
   firstName : client.firstName,
   lastName: client.lastName,
   email: client.email,
   phone: client.phone,
-  services: client.services,
+  services: client.services.toString(),
 }))
 
   return (
