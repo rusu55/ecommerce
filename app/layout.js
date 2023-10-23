@@ -20,7 +20,7 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>        
+      <body className={`${inter.className} m-0 bg-gray-50`}>        
       <AuthProvider> 
           <ToastProvider />         
           <ModalProvider />
