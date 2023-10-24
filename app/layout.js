@@ -22,16 +22,20 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} m-0 bg-gray-50`}>        
+      <body className={`${inter.className} m-0 bg-gray-50`}>
+
       <AuthProvider> 
           <ToastProvider />         
           <ModalProvider />
           <LoginModalProvider />
           <RegisterModalProvider />
-          <ClientModalProvider />
-          <SideNav />
-          <NavBar />
-          {children}
+          <ClientModalProvider />        
+          <div className='flex gap-2'>
+            <SideNav />
+            <main className="max-w-7xl flex-1 mx-auto py-4">
+             {children}
+            </main>
+          </div>      
       </AuthProvider>
       </body>
     </html>
