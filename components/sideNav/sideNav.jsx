@@ -19,14 +19,26 @@ const SideNav = () => {
             }
          }, [isTableMid]);
 
-     const navAnimation = {
+     const navAnimation =  isTableMid ? {
                 open:{
-                    x: 0
+                    x: 0,
+                    width: "16rem",
+                    transition: {
+                        damping: 40,                        
+                    },
                 },
                 closed:{
+                    x: -250,
+                },
+             } :{
+                open:{
 
                 },
-             }   
+                closed: {
+
+                },
+             }; 
+
   return (
     <div>
         <motion.div
