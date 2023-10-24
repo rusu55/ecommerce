@@ -8,6 +8,8 @@ import RegisterModalProvider from '@/providers/register-modal-provider'
 import ClientModalProvider from '@/providers/client-modal-provider'
 import { ToastProvider } from '@/providers/toast-provider'
 import NavBar from '@/components/nav/NavBar'
+import SideNav from '@/components/sideNav/sideNav'
+import { Sidebar } from 'lucide-react'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,6 +29,7 @@ export default async function RootLayout({ children }) {
           <LoginModalProvider />
           <RegisterModalProvider />
           <ClientModalProvider />
+          <SideNav />
           <NavBar />
           {children}
       </AuthProvider>
